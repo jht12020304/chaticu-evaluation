@@ -1,0 +1,13 @@
+family,domain,contrast,cumOR_vs_ChatICU,p,p_holm
+quality,Accuracy,ChatGPT,0.315,1.53e-07,9.18e-07
+quality,Accuracy,OpenEvidence,0.106,4.68e-14,4.68e-13
+quality,Relevance,ChatGPT,0.33,0.000454,0.00136
+quality,Relevance,OpenEvidence,0.087,4.96e-11,4.46e-10
+quality,Clarity,ChatGPT,0.339,0.00607,0.00607
+quality,Clarity,OpenEvidence,0.122,5.14e-06,2.06e-05
+quality,Trust,ChatGPT,0.236,1.69e-06,8.45e-06
+quality,Trust,OpenEvidence,0.09,9.29e-09,7.43e-08
+quality,Comparison,ChatGPT,0.516,0.00075,0.0015
+quality,Comparison,OpenEvidence,0.178,6.01e-08,4.21e-07
+confidence,Confidence,ChatGPT,0.423,0.0233,0.031
+confidence,Confidence,OpenEvidence,0.389,0.0155,0.031
