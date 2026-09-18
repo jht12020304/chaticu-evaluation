@@ -1,7 +1,0 @@
-Domain,Outcome type / Holm family,ChatGPT vs ChatICU OR [95% CI],ChatGPT Holm-adj. p,OpenEvidence vs ChatICU OR [95% CI],OpenEvidence Holm-adj. p,Random-effects structure,PO test LRT (df=6) p,Threshold-specific effects direction-consistent
-Accuracy,Quality (10-contrast family),"0.34 [0.26, 0.43]",<0.001,"0.12 [0.09, 0.15]",<0.001,(1|question) + (1|rater) [slope model did not converge],<0.001,yes
-Relevance,Quality (10-contrast family),"0.33 [0.18, 0.61]",0.001,"0.09 [0.04, 0.18]",<0.001,(1|question) + (1+system|rater),<0.001,yes
-Clarity,Quality (10-contrast family),"0.34 [0.16, 0.73]",0.006,"0.12 [0.05, 0.30]",<0.001,(1|question) + (1+system|rater),<0.001,yes
-Trust,Quality (10-contrast family),"0.24 [0.13, 0.43]",<0.001,"0.09 [0.04, 0.20]",<0.001,(1|question) + (1+system|rater),<0.001,yes
-Comparison,Quality (10-contrast family),"0.52 [0.35, 0.76]",0.001,"0.18 [0.10, 0.33]",<0.001,(1|question) + (1+system|rater),<0.001,yes
-Confidence,Rater confidence (separate 2-contrast family),"0.42 [0.20, 0.89]",0.031,"0.39 [0.18, 0.84]",0.031,(1|question) + (1+system|rater),<0.001,yes

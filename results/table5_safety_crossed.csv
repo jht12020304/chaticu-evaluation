@@ -1,0 +1,5 @@
+"contrast","OR_vs_ChatICU","ci_low","ci_high","p","estimator"
+"ChatGPT",0.219,0.138,0.348,1.42e-10,"glmer crossed (item+rater)"
+"OpenEvidence",0.095,0.06,0.15,9.27e-24,"glmer crossed (item+rater)"
+"ChatGPT",0.287,0.173,0.476,1.4e-06,"binomial GEE (item-clustered)"
+"OpenEvidence",0.155,0.091,0.262,3.45e-12,"binomial GEE (item-clustered)"

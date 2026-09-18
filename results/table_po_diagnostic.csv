@@ -1,0 +1,7 @@
+"domain","po_LRT_p_model","po_violated","action"
+"Accuracy",6.388e-14,TRUE,"PO violated -> partial-PO (nominal=~model) fitted"
+"Relevance",2.517e-09,TRUE,"PO violated -> partial-PO (nominal=~model) fitted"
+"Clarity",2.577e-07,TRUE,"PO violated -> partial-PO (nominal=~model) fitted"
+"Trust",3.657e-16,TRUE,"PO violated -> partial-PO (nominal=~model) fitted"
+"Comparison",2.721e-15,TRUE,"PO violated -> partial-PO (nominal=~model) fitted"
+"Confidence",2.369e-07,TRUE,"PO violated -> partial-PO (nominal=~model) fitted"

@@ -1,0 +1,13 @@
+"domain","contrast","cumOR_vs_ChatICU","ci_low","ci_high","p","P_ge4_ChatICU","P_ge4_comparator","random_slope"
+"Accuracy","ChatGPT",0.315,0.205,0.485,1.53e-07,0.939,0.828,TRUE
+"Accuracy","OpenEvidence",0.106,0.059,0.19,4.68e-14,0.939,0.619,TRUE
+"Relevance","ChatGPT",0.33,0.178,0.613,0.000454,0.985,0.957,TRUE
+"Relevance","OpenEvidence",0.087,0.042,0.18,4.96e-11,0.985,0.853,TRUE
+"Clarity","ChatGPT",0.339,0.157,0.734,0.00607,0.987,0.963,TRUE
+"Clarity","OpenEvidence",0.122,0.049,0.301,5.14e-06,0.987,0.904,TRUE
+"Trust","ChatGPT",0.236,0.131,0.426,1.69e-06,0.952,0.822,TRUE
+"Trust","OpenEvidence",0.09,0.04,0.205,9.29e-09,0.952,0.639,TRUE
+"Comparison","ChatGPT",0.516,0.351,0.758,0.00075,0.501,0.341,TRUE
+"Comparison","OpenEvidence",0.178,0.095,0.332,6.01e-08,0.501,0.151,TRUE
+"Confidence","ChatGPT",0.423,0.201,0.89,0.0233,0.985,0.964,TRUE
+"Confidence","OpenEvidence",0.389,0.181,0.835,0.0155,0.985,0.961,TRUE
