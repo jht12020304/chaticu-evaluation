@@ -1,0 +1,621 @@
+{
+ "provenance": {
+  "source": "D4 blinded LLM coding (commercial LLM judge), 204 answers; machine coding confirmed by pharmacist review; secondary/exploratory analysis (C7)",
+  "palette": {
+   "ChatICU": "#374E55",
+   "ChatGPT": "#DF8F44",
+   "OpenEvidence": "#00A1D5"
+  },
+  "system_order": [
+   "ChatICU",
+   "ChatGPT",
+   "OpenEvidence"
+  ],
+  "weights": {
+   "core_correctness": {
+    "完整正確": 1.0,
+    "部分正確": 0.5,
+    "不正確": 0.0
+   },
+   "cell_severity": {
+    "Mild": 1,
+    "Moderate": 3,
+    "Severe": 12
+   }
+  },
+  "bootstrap": {
+   "unit": "question_idx (68 questions)",
+   "replicates": 2000,
+   "seed": 20260902,
+   "method": "percentile"
+  },
+  "definitions": {
+   "TP": "correct",
+   "FP": "imprecise ∪ incorrect ∪ unsafe",
+   "FN": "omitted_but_needed",
+   "dose_item_correctness": "correct / stated mentions (omitted excluded)",
+   "SWRI": "S×L over incorrect ∪ unsafe mentions; per-100 denominator = stated mentions",
+   "near_miss_cell": "per-answer dimension cell rated incorrect or unsafe"
+  }
+ },
+ "per_system": {
+  "ChatICU": {
+   "n_answers": 68,
+   "weighted_core_correctness": 0.9117647058823529,
+   "fully_correct_n": 56,
+   "partially_correct_n": 12,
+   "incorrect_n": 0,
+   "hallucination_n": 23,
+   "hallucination_rate": 0.3382352941176471,
+   "semantic_fidelity_mean": 87.75,
+   "semantic_fidelity_sd": 10.663615079660564,
+   "semantic_fidelity_ci": [
+    85.23492647058823,
+    90.13272058823529
+   ],
+   "tfidf_cosine_mean": 0.31392093968990187,
+   "tfidf_cosine_sd": 0.08210856333538695,
+   "n_mentions_total_incl_omitted": 194,
+   "n_stated_mentions": 150,
+   "n_omitted_but_needed": 44,
+   "dose_class_counts": {
+    "correct": 97,
+    "imprecise": 41,
+    "incorrect": 8,
+    "unsafe": 4,
+    "omitted_but_needed": 44
+   },
+   "dose_item_correctness": 0.6466666666666666,
+   "TP": 97,
+   "FP": 53,
+   "FN": 44,
+   "precision": 0.6466666666666666,
+   "recall": 0.6879432624113475,
+   "F1": 0.6666666666666666,
+   "precision_ci": [
+    0.5611350410117765,
+    0.7278924069627851
+   ],
+   "recall_ci": [
+    0.5983549103722997,
+    0.7716575067378322
+   ],
+   "F1_ci": [
+    0.5930548670572331,
+    0.7315511229425219
+   ],
+   "char_length_mean_D2": 1013.5,
+   "char_length_sd_D2": 240.1640297672194,
+   "citation_mean_markers": 2.6911764705882355,
+   "citation_n_with": 68,
+   "risk_flag_prop": 0.0551470588235294,
+   "risk_flag_wilson": [
+    0.03889897221668803,
+    0.07763375416389995
+   ],
+   "risk_flag_n": 30,
+   "swri_n_err_mentions": 12,
+   "swri_severity_counts": {
+    "Mild": 8,
+    "Moderate": 3,
+    "Severe": 1
+   },
+   "swri_sum": 28.0,
+   "swri_per100_stated": 18.666666666666668,
+   "swri_mean_per_err_mention": 2.3333333333333335,
+   "nm_cells": 40,
+   "nm_by_severity": {
+    "Mild": 26,
+    "Moderate": 13,
+    "Severe": 1
+   },
+   "nm_weighted_burden": 77,
+   "nm_affected_answers": 23,
+   "nm_unsafe_cells": 1,
+   "nm_by_dimension": {
+    "drug_choice": 1,
+    "deescalation_stop_rule": 5,
+    "interaction_contraindication": 10,
+    "route_formulation": 0,
+    "organ_function_adjustment": 9,
+    "titration_target": 8,
+    "monitoring_parameter": 7
+   },
+   "nm_weighted_by_dimension": {
+    "drug_choice": 12,
+    "deescalation_stop_rule": 9,
+    "interaction_contraindication": 18,
+    "route_formulation": 0,
+    "organ_function_adjustment": 15,
+    "titration_target": 14,
+    "monitoring_parameter": 9
+   }
+  },
+  "ChatGPT": {
+   "n_answers": 68,
+   "weighted_core_correctness": 0.7426470588235294,
+   "fully_correct_n": 37,
+   "partially_correct_n": 27,
+   "incorrect_n": 4,
+   "hallucination_n": 30,
+   "hallucination_rate": 0.4411764705882353,
+   "semantic_fidelity_mean": 71.76470588235294,
+   "semantic_fidelity_sd": 22.214770968117925,
+   "semantic_fidelity_ci": [
+    66.25,
+    76.95625
+   ],
+   "tfidf_cosine_mean": 0.25149658257216306,
+   "tfidf_cosine_sd": 0.07773984574890168,
+   "n_mentions_total_incl_omitted": 203,
+   "n_stated_mentions": 104,
+   "n_omitted_but_needed": 99,
+   "dose_class_counts": {
+    "correct": 39,
+    "imprecise": 43,
+    "incorrect": 14,
+    "unsafe": 8,
+    "omitted_but_needed": 99
+   },
+   "dose_item_correctness": 0.375,
+   "TP": 39,
+   "FP": 65,
+   "FN": 99,
+   "precision": 0.375,
+   "recall": 0.2826086956521739,
+   "F1": 0.3223140495867769,
+   "precision_ci": [
+    0.2523243336794738,
+    0.5145856270643578
+   ],
+   "recall_ci": [
+    0.18654584221748402,
+    0.39167229729729724
+   ],
+   "F1_ci": [
+    0.2187468370445344,
+    0.43507159244540944
+   ],
+   "char_length_mean_D2": 1502.1617647058824,
+   "char_length_sd_D2": 264.2095284696461,
+   "citation_mean_markers": 0.0,
+   "citation_n_with": 0,
+   "risk_flag_prop": 0.1691176470588234,
+   "risk_flag_wilson": [
+    0.13996262692339245,
+    0.20291295468200343
+   ],
+   "risk_flag_n": 92,
+   "swri_n_err_mentions": 22,
+   "swri_severity_counts": {
+    "Mild": 9,
+    "Moderate": 9,
+    "Severe": 4
+   },
+   "swri_sum": 77.0,
+   "swri_per100_stated": 74.03846153846155,
+   "swri_mean_per_err_mention": 3.5,
+   "nm_cells": 69,
+   "nm_by_severity": {
+    "Mild": 37,
+    "Moderate": 30,
+    "Severe": 2
+   },
+   "nm_weighted_burden": 151,
+   "nm_affected_answers": 39,
+   "nm_unsafe_cells": 3,
+   "nm_by_dimension": {
+    "drug_choice": 11,
+    "deescalation_stop_rule": 11,
+    "interaction_contraindication": 9,
+    "route_formulation": 4,
+    "organ_function_adjustment": 10,
+    "titration_target": 16,
+    "monitoring_parameter": 8
+   },
+   "nm_weighted_by_dimension": {
+    "drug_choice": 43,
+    "deescalation_stop_rule": 25,
+    "interaction_contraindication": 21,
+    "route_formulation": 4,
+    "organ_function_adjustment": 18,
+    "titration_target": 26,
+    "monitoring_parameter": 14
+   }
+  },
+  "OpenEvidence": {
+   "n_answers": 68,
+   "weighted_core_correctness": 0.6029411764705882,
+   "fully_correct_n": 25,
+   "partially_correct_n": 32,
+   "incorrect_n": 11,
+   "hallucination_n": 55,
+   "hallucination_rate": 0.8088235294117647,
+   "semantic_fidelity_mean": 59.529411764705884,
+   "semantic_fidelity_sd": 24.540840519023757,
+   "semantic_fidelity_ci": [
+    53.55808823529412,
+    65.39742647058823
+   ],
+   "tfidf_cosine_mean": 0.21651685989451905,
+   "tfidf_cosine_sd": 0.08558527217001795,
+   "n_mentions_total_incl_omitted": 223,
+   "n_stated_mentions": 111,
+   "n_omitted_but_needed": 112,
+   "dose_class_counts": {
+    "correct": 30,
+    "imprecise": 40,
+    "incorrect": 17,
+    "unsafe": 24,
+    "omitted_but_needed": 112
+   },
+   "dose_item_correctness": 0.2702702702702703,
+   "TP": 30,
+   "FP": 81,
+   "FN": 112,
+   "precision": 0.2702702702702703,
+   "recall": 0.2112676056338028,
+   "F1": 0.23715415019762848,
+   "precision_ci": [
+    0.1651376146788991,
+    0.37721437740693187
+   ],
+   "recall_ci": [
+    0.1276460512080779,
+    0.3
+   ],
+   "F1_ci": [
+    0.14507673140054583,
+    0.3265385531644564
+   ],
+   "char_length_mean_D2": 1936.5,
+   "char_length_sd_D2": 894.2715454574887,
+   "citation_mean_markers": 3.9558823529411766,
+   "citation_n_with": 65,
+   "risk_flag_prop": 0.2738970588235294,
+   "risk_flag_wilson": [
+    0.23810548742241566,
+    0.3128594933412717
+   ],
+   "risk_flag_n": 149,
+   "swri_n_err_mentions": 41,
+   "swri_severity_counts": {
+    "Mild": 13,
+    "Moderate": 10,
+    "Severe": 18
+   },
+   "swri_sum": 181.0,
+   "swri_per100_stated": 163.06306306306305,
+   "swri_mean_per_err_mention": 4.414634146341464,
+   "nm_cells": 119,
+   "nm_by_severity": {
+    "Mild": 60,
+    "Moderate": 44,
+    "Severe": 15
+   },
+   "nm_weighted_burden": 372,
+   "nm_affected_answers": 51,
+   "nm_unsafe_cells": 16,
+   "nm_by_dimension": {
+    "drug_choice": 21,
+    "deescalation_stop_rule": 20,
+    "interaction_contraindication": 20,
+    "route_formulation": 10,
+    "organ_function_adjustment": 16,
+    "titration_target": 21,
+    "monitoring_parameter": 11
+   },
+   "nm_weighted_by_dimension": {
+    "drug_choice": 87,
+    "deescalation_stop_rule": 58,
+    "interaction_contraindication": 52,
+    "route_formulation": 25,
+    "organ_function_adjustment": 67,
+    "titration_target": 68,
+    "monitoring_parameter": 15
+   }
+  }
+ },
+ "complementarity_S9": {
+  "n_systems_fully_correct_dist": {
+   "0": 11,
+   "1": 18,
+   "2": 17,
+   "3": 22
+  },
+  "pairwise": {
+   "ChatICU vs ChatGPT": {
+    "both": 36,
+    "left_only": 20,
+    "right_only": 1,
+    "neither": 11
+   },
+   "ChatICU vs OpenEvidence": {
+    "both": 25,
+    "left_only": 31,
+    "right_only": 0,
+    "neither": 12
+   },
+   "ChatGPT vs OpenEvidence": {
+    "both": 22,
+    "left_only": 15,
+    "right_only": 3,
+    "neither": 28
+   }
+  },
+  "any_system_fully_correct": 57
+ },
+ "icu_component_rows_S11_S14": {
+  "Dose / infusion rate": {
+   "ChatICU": 0.6466666666666666,
+   "ChatGPT": 0.375,
+   "OpenEvidence": 0.2702702702702703,
+   "n": {
+    "ChatICU": 150,
+    "ChatGPT": 104,
+    "OpenEvidence": 111
+   },
+   "ChatICU_minus_next_best": 0.2716666666666666,
+   "unit": "[M] correct / stated mentions"
+  },
+  "ICU syndrome recognition (proxy: fully correct core answer)": {
+   "ChatICU": 0.8235294117647058,
+   "ChatGPT": 0.5441176470588235,
+   "OpenEvidence": 0.36764705882352944,
+   "n": {
+    "ChatICU": 68,
+    "ChatGPT": 68,
+    "OpenEvidence": 68
+   },
+   "ChatICU_minus_next_best": 0.27941176470588236,
+   "unit": "[A] fully correct / 68"
+  },
+  "Guideline anchoring (proxy: no judge-flagged hallucination)": {
+   "ChatICU": 0.6617647058823529,
+   "ChatGPT": 0.5588235294117647,
+   "OpenEvidence": 0.19117647058823528,
+   "n": {
+    "ChatICU": 68,
+    "ChatGPT": 68,
+    "OpenEvidence": 68
+   },
+   "ChatICU_minus_next_best": 0.1029411764705882,
+   "unit": "[A] not flagged / 68"
+  },
+  "Drug choice": {
+   "ChatICU": 0.9836065573770492,
+   "ChatGPT": 0.8,
+   "OpenEvidence": 0.625,
+   "n": {
+    "ChatICU": 61,
+    "ChatGPT": 55,
+    "OpenEvidence": 56
+   },
+   "ChatICU_minus_next_best": 0.18360655737704912,
+   "unit": "[A] adequate / applicable answers"
+  },
+  "De-escalation / stop rule": {
+   "ChatICU": 0.8648648648648649,
+   "ChatGPT": 0.7659574468085106,
+   "OpenEvidence": 0.5454545454545454,
+   "n": {
+    "ChatICU": 37,
+    "ChatGPT": 47,
+    "OpenEvidence": 44
+   },
+   "ChatICU_minus_next_best": 0.09890741805635428,
+   "unit": "[A] adequate / applicable answers"
+  },
+  "Interaction / contraindication": {
+   "ChatICU": 0.7435897435897436,
+   "ChatGPT": 0.7692307692307693,
+   "OpenEvidence": 0.5833333333333334,
+   "n": {
+    "ChatICU": 39,
+    "ChatGPT": 39,
+    "OpenEvidence": 48
+   },
+   "ChatICU_minus_next_best": -0.02564102564102566,
+   "unit": "[A] adequate / applicable answers"
+  },
+  "Route / formulation": {
+   "ChatICU": 1.0,
+   "ChatGPT": 0.8823529411764706,
+   "OpenEvidence": 0.696969696969697,
+   "n": {
+    "ChatICU": 34,
+    "ChatGPT": 34,
+    "OpenEvidence": 33
+   },
+   "ChatICU_minus_next_best": 0.11764705882352944,
+   "unit": "[A] adequate / applicable answers"
+  },
+  "Organ-function adjustment": {
+   "ChatICU": 0.71875,
+   "ChatGPT": 0.7297297297297297,
+   "OpenEvidence": 0.6190476190476191,
+   "n": {
+    "ChatICU": 32,
+    "ChatGPT": 37,
+    "OpenEvidence": 42
+   },
+   "ChatICU_minus_next_best": -0.010979729729729715,
+   "unit": "[A] adequate / applicable answers"
+  },
+  "Titration target": {
+   "ChatICU": 0.7777777777777778,
+   "ChatGPT": 0.6444444444444445,
+   "OpenEvidence": 0.5333333333333333,
+   "n": {
+    "ChatICU": 36,
+    "ChatGPT": 45,
+    "OpenEvidence": 45
+   },
+   "ChatICU_minus_next_best": 0.1333333333333333,
+   "unit": "[A] adequate / applicable answers"
+  },
+  "Monitoring parameter": {
+   "ChatICU": 0.8771929824561403,
+   "ChatGPT": 0.873015873015873,
+   "OpenEvidence": 0.8307692307692308,
+   "n": {
+    "ChatICU": 57,
+    "ChatGPT": 63,
+    "OpenEvidence": 65
+   },
+   "ChatICU_minus_next_best": 0.004177109440267279,
+   "unit": "[A] adequate / applicable answers"
+  }
+ },
+ "chaticu_first_rows_S14": 8,
+ "n_component_rows": 10,
+ "near_miss_totals": {
+  "total_cells": 228,
+  "by_dimension": {
+   "drug_choice": 33,
+   "deescalation_stop_rule": 36,
+   "interaction_contraindication": 39,
+   "route_formulation": 14,
+   "organ_function_adjustment": 35,
+   "titration_target": 45,
+   "monitoring_parameter": 26
+  },
+  "pareto_order": [
+   "titration_target",
+   "interaction_contraindication",
+   "deescalation_stop_rule",
+   "organ_function_adjustment",
+   "drug_choice",
+   "monitoring_parameter",
+   "route_formulation"
+  ],
+  "cumulative_pct": [
+   19.736842105263158,
+   36.84210526315789,
+   52.63157894736842,
+   67.98245614035088,
+   82.45614035087719,
+   93.85964912280701,
+   100.0
+  ],
+  "dimensions_to_reach_80pct": 5,
+  "by_severity": {
+   "Mild": 123,
+   "Moderate": 87,
+   "Severe": 18
+  },
+  "unsafe_cells": 20
+ },
+ "convergent_validity_S5": {
+  "label": "within-sample exploratory internal validation (not external validation)",
+  "low_quality_def": "mean human Accuracy (8 raters) < 4.0",
+  "n_low_quality": 72,
+  "n": 204,
+  "youden_cutoff_fidelity_lte": 65.0,
+  "youden_J": 0.7916666666666666,
+  "auc": 0.9507049663299664,
+  "TP": 63,
+  "FP": 11,
+  "FN": 9,
+  "TN": 121,
+  "sensitivity": 0.875,
+  "specificity": 0.9166666666666666,
+  "PPV": 0.8513513513513513,
+  "NPV": 0.9307692307692308,
+  "accuracy": 0.9019607843137255,
+  "cohen_kappa": 0.7867001254705144,
+  "ols_fidelity_on_char_length": {
+   "slope_per_char": -0.009869714503425175,
+   "slope_per_100_chars": -0.9869714503425174,
+   "p": 3.3005466518297734e-05,
+   "r2": 0.0819822791232061
+  },
+  "logit_hallucination_on_char_length": {
+   "coef_per_char": 0.0008587823698106326,
+   "OR_per_100_chars": 1.0896736382750711,
+   "p": 0.0008339697642185673
+  },
+  "pearson_fidelity_vs_accuracy": {
+   "r": 0.852083719185977,
+   "ci_lo": 0.8094605349252915,
+   "ci_hi": 0.8857741048142019,
+   "p": 1.053854910327687e-58
+  },
+  "pearson_weighted_correctness_vs_accuracy": {
+   "r": 0.7867385842125318,
+   "ci_lo": 0.7280505545119097,
+   "ci_hi": 0.8339782486990995,
+   "p": 3.38765510359721e-44
+  },
+  "ols_accuracy_on_fidelity": {
+   "intercept": 2.309441861886537,
+   "slope": 0.02297743270729415
+  }
+ },
+ "table_S3": [
+  {
+   "row": 1,
+   "metric": "Weighted core correctness (1.0 / 0.5 / 0)",
+   "unit": "[A] per-answer, n=68",
+   "ChatICU": "0.912",
+   "ChatGPT": "0.743",
+   "OpenEvidence": "0.603"
+  },
+  {
+   "row": 2,
+   "metric": "Fully correct answers",
+   "unit": "[A] per-answer, n=68",
+   "ChatICU": "56/68 (82.4%)",
+   "ChatGPT": "37/68 (54.4%)",
+   "OpenEvidence": "25/68 (36.8%)"
+  },
+  {
+   "row": 3,
+   "metric": "Judge-flagged hallucination",
+   "unit": "[A] per-answer, n=68",
+   "ChatICU": "23/68 (33.8%)",
+   "ChatGPT": "30/68 (44.1%)",
+   "OpenEvidence": "55/68 (80.9%)"
+  },
+  {
+   "row": 4,
+   "metric": "Mean semantic fidelity (0-100)",
+   "unit": "[A] per-answer, n=68",
+   "ChatICU": "87.8 (SD 10.7; 95% bootstrap CI 85.2-90.1)",
+   "ChatGPT": "71.8 (SD 22.2; 95% bootstrap CI 66.2-77.0)",
+   "OpenEvidence": "59.5 (SD 24.5; 95% bootstrap CI 53.6-65.4)"
+  },
+  {
+   "row": 5,
+   "metric": "Dose item correctness (correct / stated dose mentions)",
+   "unit": "ChatICU: [M] per-mention, n=150 stated mentions; ChatGPT: [M] per-mention, n=104 stated mentions; OpenEvidence: [M] per-mention, n=111 stated mentions",
+   "ChatICU": "64.7% (97/150)",
+   "ChatGPT": "37.5% (39/104)",
+   "OpenEvidence": "27.0% (30/111)"
+  },
+  {
+   "row": 6,
+   "metric": "TF-IDF cosine similarity to reference standard",
+   "unit": "[A] per-answer, n=68",
+   "ChatICU": "0.314 (SD 0.082)",
+   "ChatGPT": "0.251 (SD 0.078)",
+   "OpenEvidence": "0.217 (SD 0.086)"
+  },
+  {
+   "row": 7,
+   "metric": "Dose classification F1 [95% CI]",
+   "unit": "ChatICU: [M] per-mention, n=194 mentions incl. 44 omitted-but-needed; CI by question-level bootstrap; ChatGPT: [M] per-mention, n=203 mentions incl. 99 omitted-but-needed; CI by question-level bootstrap; OpenEvidence: [M] per-mention, n=223 mentions incl. 112 omitted-but-needed; CI by question-level bootstrap",
+   "ChatICU": "0.667 [0.593, 0.732]",
+   "ChatGPT": "0.322 [0.219, 0.435]",
+   "OpenEvidence": "0.237 [0.145, 0.327]"
+  },
+  {
+   "row": 8,
+   "metric": "Mean answer length (characters, D2)",
+   "unit": "[A] per-answer, n=68",
+   "ChatICU": "1014 (SD 240)",
+   "ChatGPT": "1502 (SD 264)",
+   "OpenEvidence": "1936 (SD 894)"
+  }
+ ]
+}

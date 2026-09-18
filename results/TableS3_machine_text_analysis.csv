@@ -1,0 +1,9 @@
+row,metric,unit,ChatICU,ChatGPT,OpenEvidence
+1,Weighted core correctness (1.0 / 0.5 / 0),"[A] per-answer, n=68",0.912,0.743,0.603
+2,Fully correct answers,"[A] per-answer, n=68",56/68 (82.4%),37/68 (54.4%),25/68 (36.8%)
+3,Judge-flagged hallucination,"[A] per-answer, n=68",23/68 (33.8%),30/68 (44.1%),55/68 (80.9%)
+4,Mean semantic fidelity (0-100),"[A] per-answer, n=68",87.8 (SD 10.7; 95% bootstrap CI 85.2-90.1),71.8 (SD 22.2; 95% bootstrap CI 66.2-77.0),59.5 (SD 24.5; 95% bootstrap CI 53.6-65.4)
+5,Dose item correctness (correct / stated dose mentions),"ChatICU: [M] per-mention, n=150 stated mentions; ChatGPT: [M] per-mention, n=104 stated mentions; OpenEvidence: [M] per-mention, n=111 stated mentions",64.7% (97/150),37.5% (39/104),27.0% (30/111)
+6,TF-IDF cosine similarity to reference standard,"[A] per-answer, n=68",0.314 (SD 0.082),0.251 (SD 0.078),0.217 (SD 0.086)
+7,Dose classification F1 [95% CI],"ChatICU: [M] per-mention, n=194 mentions incl. 44 omitted-but-needed; CI by question-level bootstrap; ChatGPT: [M] per-mention, n=203 mentions incl. 99 omitted-but-needed; CI by question-level bootstrap; OpenEvidence: [M] per-mention, n=223 mentions incl. 112 omitted-but-needed; CI by question-level bootstrap","0.667 [0.593, 0.732]","0.322 [0.219, 0.435]","0.237 [0.145, 0.327]"
+8,"Mean answer length (characters, D2)","[A] per-answer, n=68",1014 (SD 240),1502 (SD 264),1936 (SD 894)

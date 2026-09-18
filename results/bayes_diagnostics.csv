@@ -1,0 +1,8 @@
+"domain","n_divergent","max_rhat","family"
+"Accuracy",0,1.00532627919929,"cumulative"
+"Relevance",0,1.00574392313645,"cumulative"
+"Clarity",0,1.00767759921832,"cumulative"
+"Trust",0,1.00571295404399,"cumulative"
+"Comparison",0,1.0076288410948,"cumulative"
+"Confidence",0,1.00517471759421,"cumulative"
+"Safety",0,1.00529679900463,"bernoulli"

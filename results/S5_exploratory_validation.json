@@ -1,0 +1,46 @@
+{
+ "label": "within-sample exploratory internal validation (not external validation)",
+ "low_quality_def": "mean human Accuracy (8 raters) < 4.0",
+ "n_low_quality": 72,
+ "n": 204,
+ "youden_cutoff_fidelity_lte": 65.0,
+ "youden_J": 0.7916666666666666,
+ "auc": 0.9507049663299664,
+ "TP": 63,
+ "FP": 11,
+ "FN": 9,
+ "TN": 121,
+ "sensitivity": 0.875,
+ "specificity": 0.9166666666666666,
+ "PPV": 0.8513513513513513,
+ "NPV": 0.9307692307692308,
+ "accuracy": 0.9019607843137255,
+ "cohen_kappa": 0.7867001254705144,
+ "ols_fidelity_on_char_length": {
+  "slope_per_char": -0.009869714503425175,
+  "slope_per_100_chars": -0.9869714503425174,
+  "p": 3.3005466518297734e-05,
+  "r2": 0.0819822791232061
+ },
+ "logit_hallucination_on_char_length": {
+  "coef_per_char": 0.0008587823698106326,
+  "OR_per_100_chars": 1.0896736382750711,
+  "p": 0.0008339697642185673
+ },
+ "pearson_fidelity_vs_accuracy": {
+  "r": 0.852083719185977,
+  "ci_lo": 0.8094605349252915,
+  "ci_hi": 0.8857741048142019,
+  "p": 1.053854910327687e-58
+ },
+ "pearson_weighted_correctness_vs_accuracy": {
+  "r": 0.7867385842125318,
+  "ci_lo": 0.7280505545119097,
+  "ci_hi": 0.8339782486990995,
+  "p": 3.38765510359721e-44
+ },
+ "ols_accuracy_on_fidelity": {
+  "intercept": 2.309441861886537,
+  "slope": 0.02297743270729415
+ }
+}

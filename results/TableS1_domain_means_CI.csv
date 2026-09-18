@@ -1,0 +1,7 @@
+Domain,Outcome type,ChatICU mean [95% CI],ChatGPT mean [95% CI],OpenEvidence mean [95% CI]
+Accuracy,Quality domain,"4.40 [4.12, 4.67]","3.99 [3.61, 4.35]","3.57 [3.19, 3.94]"
+Relevance,Quality domain,"4.54 [4.20, 4.86]","4.34 [3.90, 4.74]","3.97 [3.46, 4.42]"
+Clarity,Quality domain,"4.53 [4.19, 4.84]","4.33 [3.91, 4.71]","4.07 [3.60, 4.51]"
+Trust,Quality domain,"4.45 [4.15, 4.75]","4.00 [3.62, 4.36]","3.59 [3.18, 3.99]"
+Comparison,Quality domain,"3.45 [3.24, 3.65]","3.18 [2.94, 3.42]","2.80 [2.53, 3.09]"
+Confidence,Rater confidence (not answer quality),"4.22 [3.78, 4.66]","4.08 [3.62, 4.56]","4.05 [3.54, 4.55]"
