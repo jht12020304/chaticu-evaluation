@@ -15,11 +15,11 @@ Blind IDs `B001–B204` were assigned by `numpy.random.default_rng(20260902).per
 
 ## 3. Judge model and call settings
 - Model requested: `host.reasoning_model()` (the host's default reasoning model); the same model id was returned in every response.
-- Structured output enforced with a JSON-schema tool (`record_coding`) and `tool_choice = {"type":"tool","name":"record_coding"}`; extended thinking disabled; `max_tokens = 7000`.
-- Temperature: the API rejected the `temperature` parameter for this model (`400: temperature is deprecated for this model`), so the server default was used (not user-settable). Determinism is therefore not guaranteed; raw responses are stored so codings can be audited.
+- Structured output enforced with a JSON-schema function (`record_coding`) that the model was required to call; no extended reasoning mode; `max_tokens = 7000`.
+- Temperature: the API did not accept a `temperature` parameter for this model, so the server default was used (not user-settable). Determinism is therefore not guaranteed; raw responses are stored so codings can be audited.
 - Fan-out: list-form `host.llm`, `max_concurrency = 6`; 3 pilot answers first, then 201.
 - Validation: schema/enum/range checks + consistency rules (incorrect/unsafe mentions must carry S≥1 and a Mild/Moderate/Severe label; incorrect/unsafe dimension cells must carry a severity). Failing outputs were re-requested with the validator's messages appended (max 3 attempts), after which the row would have been marked missing.
-- Outcome: 204/204 coded; 202 accepted on attempt 1, 2 on attempt 2, 0 API errors, 0 truncations, **0 missing rows**. Token use: 2,206,663 input (incl. cached), 300,158 output.
+- Outcome: 204/204 coded; 202 accepted on attempt 1, 2 on attempt 2, 0 API errors, 0 truncations, **0 missing rows**. Token use: 2,206,663 input, 300,158 output.
 
 | blind_id | retry reason |
 |---|---|

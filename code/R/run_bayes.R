@@ -1,7 +1,9 @@
 suppressPackageStartupMessages({library(brms); library(rstan); library(dplyr)})
 rstan_options(boost_lib = system.file("include", package="BH"), eigen_lib = system.file("include", package="RcppEigen"), auto_write = TRUE)
 options(mc.cores = 4)
-d1 <- read.csv("data/D1_ratings_long.csv", stringsAsFactors = FALSE)
+# Run from the repository root: Rscript code/R/run_bayes.R  (slow: 7 brms models, 4 chains each)
+d1 <- read.csv("data/expert_ratings_long.csv", stringsAsFactors = FALSE)
+names(d1)[names(d1) == "system"] <- "model"; names(d1)[names(d1) == "rater"] <- "expert"
 d1$model <- factor(d1$model, levels = c("ChatICU", "ChatGPT", "OpenEvidence"))
 d1$question_id <- factor(d1$question_id); d1$expert <- factor(d1$expert)
 DOMS <- c("Accuracy", "Relevance", "Clarity", "Trust", "Comparison", "Confidence")
@@ -27,13 +29,13 @@ for (dm in DOMS) {
              cores = 4, seed = 20260902, control = list(adapt_delta = 0.95, max_treedepth = 12), refresh = 0, silent = 2)
   summarise_fit(fit, dm)
   cat(dm, "done in", round(as.numeric(difftime(Sys.time(), t0, units = "mins")), 1), "min; divergences:", diag[[dm]]$n_divergent, "\n")
-  write.csv(bind_rows(out), "data/bayes_results.csv", row.names = FALSE)
+  write.csv(bind_rows(out), "results/bayes_results.csv", row.names = FALSE)
 }
 ds <- d1 %>% filter(domain == "Safety")
 fit <- brm(score ~ model + (1 | question_id) + (1 | expert), data = ds, family = bernoulli("logit"), prior = pri,
            chains = 4, iter = 2000, warmup = 1000, cores = 4, seed = 20260902, control = list(adapt_delta = 0.95), refresh = 0, silent = 2)
 summarise_fit(fit, "Safety")
-write.csv(bind_rows(out), "data/bayes_results.csv", row.names = FALSE)
-write.csv(bind_rows(diag), "data/bayes_diagnostics.csv", row.names = FALSE)
+write.csv(bind_rows(out), "results/bayes_results.csv", row.names = FALSE)
+write.csv(bind_rows(diag), "results/bayes_diagnostics.csv", row.names = FALSE)
 cat("brms", as.character(packageVersion("brms")), "rstan", as.character(packageVersion("rstan")), "\n")
 print(bind_rows(out), digits = 3)
