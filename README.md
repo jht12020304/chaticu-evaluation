@@ -1,6 +1,7 @@
 # ChatICU evaluation: data and analysis code
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24214951.svg)](https://doi.org/10.5281/zenodo.24214951)
 
 Data and code accompanying the manuscript *Evaluating Clinical Reliability Beyond Citations: A Source-Blinded Expert Comparison of Generative AI Systems for ICU Pharmacotherapy* (submitted to npj Digital Medicine, 2026).
 
@@ -69,6 +70,12 @@ R outputs are written to `code/results_R/`, Python outputs to `code/results_py/`
 ## Licence
 
 Code: [MIT License](LICENSE). Data (`data/`, `results/`): [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+
+## Citation
+
+Yu, C.-Y., Hsu, C.-W., Yeh, C.-C., Day, C.-H. A., Ding, C.-H., Lin, Y.-T., Chen, Y.-T., & Lin, C.-P. (2026). *ChatICU evaluation: data and analysis code* (v1.0.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.24214952
+
+The version-specific DOI above identifies the archived v1.0.0 release. The [all-versions DOI](https://doi.org/10.5281/zenodo.24214951) resolves to the latest archived version.
 
 ## Contact
 
