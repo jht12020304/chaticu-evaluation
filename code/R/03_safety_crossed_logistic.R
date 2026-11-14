@@ -1,5 +1,4 @@
 source("R/00_common.R")
-suppressWarnings(suppressMessages(library(geepack)))
 d <- load_long()
 OUT <- "results_R"
 s <- domain_df(d, "Safety", ordered = FALSE)

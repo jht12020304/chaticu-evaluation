@@ -1,16 +1,7 @@
-"""Recomputes, from the released data, the descriptive and exploratory statistics reported in the manuscript:
-Table S1 (means with multiway cluster bootstrap 95% CIs), the composite score and domain correlations (Figure S1),
-Friedman / Holm-adjusted Wilcoxon tests, Safety proportions with Wilson CIs and citation counts (Figure 4),
-Table S3 and the flagged-burden metrics of the LLM-based evaluation (Figures S3-S5) and the exploratory
-convergence / threshold analysis (Figure S7). Run from the repository root:
-    python3 code/python/reported_stats.py
-Outputs are written to code/results_py/; a check table against the archived results/ files is printed.
-Bootstrap CIs are seeded but not bit-identical to the archived values (different resampling implementation);
-they agree to about 0.02.
-"""
 import json, os, numpy as np, pandas as pd
 from scipy import stats
 from statsmodels.stats.proportion import proportion_confint
+from statsmodels.stats.multitest import multipletests
 import statsmodels.api as sm
 from sklearn.metrics import roc_auc_score, cohen_kappa_score
 
@@ -29,13 +20,11 @@ checks = []
 def chk(label, computed, archived): checks.append((label, computed, archived))
 
 def multiway_ci(M, seed=SEED):
-    """Percentile CI of the mean of a questions x raters matrix, resampling questions and raters simultaneously."""
     rng = np.random.default_rng(seed); nq, nr = M.shape
     boots = np.array([M[np.ix_(rng.integers(0, nq, nq), rng.integers(0, nr, nr))].mean() for _ in range(B)])
     return np.percentile(boots, [2.5, 97.5])
 
 def qboot_ci(groups, stat, seed=SEED):
-    """Percentile CI of stat(list of per-question records) resampling questions with replacement."""
     rng = np.random.default_rng(seed); n = len(groups)
     boots = np.array([stat([groups[i] for i in rng.integers(0, n, n)]) for _ in range(B)])
     return np.percentile(boots, [2.5, 97.5])
@@ -70,8 +59,7 @@ for dom in QUAL + ["Confidence"]:
     q = d[d.domain == dom].groupby(["question_id", "system"]).score.mean().unstack("system")
     fr = stats.friedmanchisquare(*[q[s].values for s in SYS])
     raw = [stats.wilcoxon(q[x].values, q[y].values).pvalue for x, y in pairs]
-    order = np.argsort(raw); holm = [None] * 3
-    for rank, i in enumerate(order): holm[i] = min(1.0, raw[i] * (3 - rank))
+    holm = multipletests(raw, method="holm")[1]
     rank_order = " > ".join(q.mean().sort_values(ascending=False).index)
     fw.append({"domain": dom, "friedman_chi2": fr.statistic, "friedman_p": fr.pvalue, "n_questions": len(q),
                **{f"wilcoxon_holm_{x}_vs_{y}": p for (x, y), p in zip(pairs, holm)}, "rank_order": rank_order})
@@ -93,12 +81,11 @@ for s in SYS:
 pd.DataFrame(f4).to_csv(f"{OUT}/fig4_stats.csv", index=False)
 
 arch_d4 = json.load(open("results/D4_summary_stats.json"))["per_system"]
-wcc = a.core_correctness.map({"fully_correct": 1.0, "partially_correct": 0.5, "incorrect": 0.0})
+a["wcc"] = a.core_correctness.map({"fully_correct": 1.0, "partially_correct": 0.5, "incorrect": 0.0})
 per_system, adequate = {}, {}
 for s in SYS:
-    aa = a[a.system == s].copy(); mm = m[m.system == s]; st = mm[mm.mention_type == "stated"]
-    fid_groups = [[v] for v in aa.semantic_fidelity.values]
-    fid_ci = qboot_ci(fid_groups, lambda g: np.mean([x[0] for x in g]))
+    aa = a[a.system == s]; mm = m[m.system == s]; st = mm[mm.mention_type == "stated"]
+    fid_ci = qboot_ci(aa.semantic_fidelity.to_numpy(), np.mean)
     cls = st["class"].value_counts().to_dict()
     TP = cls.get("correct", 0); FP = len(st) - TP; FN = int((mm.mention_type == "omitted").sum())
     def f1_of(groups):
@@ -119,7 +106,7 @@ for s in SYS:
         applicable = rating != "not_applicable"
         adequate.setdefault(dim, {})[s] = {"adequate_prop": float((rating == "adequate").sum() / applicable.sum()), "n_applicable": int(applicable.sum())}
     per_system[s] = {
-        "n_answers": len(aa), "weighted_core_correctness": float(wcc[aa.index].mean()),
+        "n_answers": len(aa), "weighted_core_correctness": float(aa.wcc.mean()),
         "fully_correct_n": int((aa.core_correctness == "fully_correct").sum()), "partially_correct_n": int((aa.core_correctness == "partially_correct").sum()),
         "incorrect_n": int((aa.core_correctness == "incorrect").sum()), "hallucination_n": int(aa.hallucination.sum()), "hallucination_rate": float(aa.hallucination.mean()),
         "semantic_fidelity_mean": float(aa.semantic_fidelity.mean()), "semantic_fidelity_sd": float(aa.semantic_fidelity.std()), "semantic_fidelity_ci": [float(x) for x in fid_ci],
@@ -141,7 +128,7 @@ for s in SYS:
 
 arch_s5 = json.load(open("results/S5_exploratory_validation.json"))
 acc_q = d[d.domain == "Accuracy"].groupby(["question_id", "system"]).score.mean().rename("acc_mean").reset_index()
-v = a.merge(acc_q, on=["question_id", "system"]); v["wcc"] = wcc[v.index] if len(v) == len(a) else v.core_correctness.map({"fully_correct": 1.0, "partially_correct": 0.5, "incorrect": 0.0})
+v = a.merge(acc_q, on=["question_id", "system"])
 def pearson_ci(x, y):
     r, p = stats.pearsonr(x, y); z = np.arctanh(r); se = 1 / np.sqrt(len(x) - 3)
     return {"r": float(r), "ci_lo": float(np.tanh(z - 1.96 * se)), "ci_hi": float(np.tanh(z + 1.96 * se)), "p": float(p)}

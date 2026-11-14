@@ -40,7 +40,7 @@ The 68 evaluation questions, the reference standard and the 204 system responses
 
 ## Environment
 
-- Primary and robustness models: R 4.5.2 with `ordinal` 2025.12.29, `lme4`, `geepack`, `multgee` (`emmeans` is loaded but not required).
+- Primary and robustness models: R 4.5.2 with `ordinal` 2025.12.29, `lme4`, `geepack`, `multgee`.
 - Bayesian models: R 4.5.3 with `brms` 2.23.0, `rstan` 2.32.7 and `dplyr` (`results/bayes_session_info.txt`).
 - Python 3 with `pandas`, `numpy`, `scipy`, `statsmodels` 0.14, `pingouin` 0.6, `scikit-learn`, `matplotlib`; `jieba` for `d4_tfidf.py`.
 - The LLM-based evaluation used a commercial large language model accessed through a hosted API (`d4_coding.py`); the sampling temperature could not be fixed, so re-running it will not reproduce the archived outputs exactly. The archived per-answer and per-mention outputs are provided in `data/`.
@@ -73,7 +73,7 @@ Code: [MIT License](LICENSE). Data (`data/`, `results/`): [Creative Commons Attr
 
 ## Citation
 
-Yu, C.-Y., Hsu, C.-W., Yeh, C.-C., Day, C.-H. A., Ding, C.-H., Lin, Y.-T., Chen, Y.-T., & Lin, C.-P. (2026). *ChatICU evaluation: data and analysis code* (v1.0.1) [Software]. Zenodo. https://doi.org/10.5281/zenodo.24215027
+Yu, C.-Y., Hsu, C.-W., Yeh, C.-C., Day, C.-H. A., Ding, C.-H., Lin, Y.-T., Chen, Y.-T., & Lin, C.-P. (2026). *ChatICU evaluation: data and analysis code* [Software]. Zenodo. https://doi.org/10.5281/zenodo.24214951
 
 The [all-versions DOI](https://doi.org/10.5281/zenodo.24214951) resolves to the latest archived version. For reproducibility, cite the version-specific DOI displayed on the Zenodo record for the release used in your analysis.
 

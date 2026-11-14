@@ -1,8 +1,3 @@
-"""Inter-rater reliability (Supplementary Figure S6): two-way random-effects, absolute-agreement, average-measures
-ICC(2,k) with 95% CI (pingouin) and Gwet's AC1 (Safety) / quadratic-weighted AC2 (ordinal domains) with a
-subject-level bootstrap 95% CI. Subjects = 204 responses (question x system), raters = 8.
-Run from the repository root: python3 code/python/irr_icc_gwet.py  ->  code/results_py/figS4_irr.csv
-"""
 import os, numpy as np, pandas as pd, pingouin as pg
 SEED, B = 20260902, 2000
 DOMS = ["Accuracy", "Relevance", "Clarity", "Trust", "Comparison", "Confidence", "Safety"]
@@ -11,8 +6,6 @@ df = pd.read_csv("data/expert_ratings_long.csv", dtype={"question_id": str})
 df["target"] = df.question_id + "|" + df.system
 
 def gwet(matrix, weighted=False, cats=None):
-    """Gwet's AC1 (unweighted) or AC2 with quadratic weights (Gwet 2014); rows = subjects, columns = raters.
-    cats fixes the category set (needed for bootstrap resamples in which a rare category is absent)."""
     cats = cats or sorted({v for r in matrix for v in r if not np.isnan(v)}); q = len(cats); idx = {c: i for i, c in enumerate(cats)}
     W = np.eye(q) if not weighted else np.array([[1 - ((i - j) ** 2) / ((q - 1) ** 2) for j in range(q)] for i in range(q)])
     pa_num, nprime, pik = 0.0, 0, np.zeros(q)

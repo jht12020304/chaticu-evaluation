@@ -1,5 +1,4 @@
-import json, time, re
-import pandas as pd
+import json, time
 
 TEMPERATURE = None
 MAX_TOKENS = 7000
@@ -141,13 +140,9 @@ def build_prompt(row):
 
 
 def validate(inp):
-    """Return list of problems (empty = valid)."""
-    p = []
     if not isinstance(inp, dict):
         return ["not a dict"]
-    for k in TOOL["input_schema"]["required"]:
-        if k not in inp:
-            p.append(f"missing {k}")
+    p = [f"missing {k}" for k in TOOL["input_schema"]["required"] if k not in inp]
     if p:
         return p
     if inp["core_correctness"] not in ["完整正確", "部分正確", "不正確"]:
@@ -207,7 +202,7 @@ def run_coding(blinded_df, raw_path="D4_raw_responses.jsonl"):
             res = host.llm(reqs, max_concurrency=CONC)
             print(f"attempt {attempt}: {len(ids)} requests, {time.time()-t0:.0f}s")
             nxt = {}
-            for b, req, r in zip(ids, reqs, res):
+            for b, r in zip(ids, res):
                 attempts_log[b] = attempt
                 rec = {"blind_id": b, "attempt": attempt, "model_requested": MODEL,
                        "temperature": TEMPERATURE, "response": r}

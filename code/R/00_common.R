@@ -1,5 +1,5 @@
 suppressWarnings(suppressMessages({
-  library(ordinal); library(lme4); library(emmeans); library(geepack)
+  library(ordinal); library(lme4); library(geepack)
 }))
 
 DATA <- "long_with_global_qid.csv"
@@ -21,7 +21,5 @@ domain_df <- function(d, dom, ordered = TRUE) {
   else         s$y <- s$score
   droplevels(s)
 }
-
-emm_to_df <- function(x) as.data.frame(x)
 
 cat(sprintf("[00_common] loaded helpers; outcome=ordered 1-5 (Likert), ref=ChatICU\n"))
