@@ -7,7 +7,6 @@ DOMS = ["Accuracy", "Relevance", "Clarity", "Trust", "Comparison", "Confidence"]
 def save(fig, name):
     fig.savefig(f"figs/{name}.png", dpi=300, bbox_inches="tight"); fig.savefig(f"figs/{name}.pdf", bbox_inches="tight")
 
-# ---------------- Fig S1: composite + correlation ----------------
 comp = pd.read_csv("data/figS1A_composite.csv").set_index("model").loc[SYS]
 corr = pd.read_csv("data/figS1B_corr.csv", index_col=0)
 fig, (a, b) = plt.subplots(1, 2, figsize=(7.2, 3.0), gridspec_kw=dict(width_ratios=[1, 1.25]))
@@ -29,7 +28,6 @@ cb = fig.colorbar(im, ax=b, fraction=0.046, pad=0.03); cb.set_label("Pearson r",
 for ax, L in zip((a, b), "ab"): panel_letter(ax, L)
 fig.tight_layout(); save(fig, "FigS1_composite_correlation"); plt.close(fig)
 
-# ---------------- Fig S4: inter-rater reliability ----------------
 irr = pd.read_csv("data/figS4_irr.csv")
 fig, ax = plt.subplots(figsize=(5.6, 3.2))
 ys = np.arange(len(irr))[::-1]
@@ -48,7 +46,6 @@ ax.legend(handles=h, loc="lower left", bbox_to_anchor=(0, 1.01), frameon=False, 
 ax.text(0.01, 0.35, "n = 204 answers × 8 raters per domain", fontsize=6, color=META_GREY, va="top")
 set_frame(ax, "open"); fig.tight_layout(); save(fig, "FigS4_interrater_reliability"); plt.close(fig)
 
-# ---------------- Fig S6: ordinal GEE forest ----------------
 g = pd.read_csv("data/gee_results.csv")
 fig, ax = plt.subplots(figsize=(5.2, 3.7))
 y = 0; ypos = []; ylab = []
@@ -76,7 +73,6 @@ h.append(mpl.lines.Line2D([], [], marker="|", ls="", color="#555555", mew=1.2, l
 ax.legend(handles=h, loc="lower left", bbox_to_anchor=(0, 1.01), ncol=3, frameon=False, columnspacing=1.2)
 set_frame(ax, "open"); fig.tight_layout(); save(fig, "FigS6_ordinal_GEE_forest"); plt.close(fig)
 
-# ---------------- Fig 1: study design schematic ----------------
 fig, ax = plt.subplots(figsize=(7.2, 4.2)); ax.set_xlim(0, 10); ax.set_ylim(0, 7); ax.axis("off")
 def box(x, y, w, h, text, fc="#f2f2f2", ec="#555555", fs=6, color="#222222", weight_first=False):
     ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.02,rounding_size=0.08", fc=fc, ec=ec, lw=0.8))
@@ -91,7 +87,6 @@ boxes = [(0.15, 1.75, "68 clinical\nquestions\n37 items + 2 cases\n(16 + 15)"),
          (8.05, 1.85, "5 quality domains\n+ rater confidence\n(Likert 1–5)\n+ Safety (0/1)\n11,424 ratings")]
 for x, w, t in boxes: box(x, top, w, bh, t)
 for (x0, w0, _), (x1, _, _) in zip(boxes[:-1], boxes[1:]): arrow(x0 + w0 + 0.02, top + bh/2, x1 - 0.02, top + bh/2)
-# bus line from the ratings box down to three tracks
 xs = [1.65, 5.0, 8.35]; ybus = 4.7
 ax.plot([8.05 + 1.85/2, 8.05 + 1.85/2], [top - 0.02, ybus], color="#555555", lw=0.8)
 ax.plot([xs[0], 8.05 + 1.85/2], [ybus, ybus], color="#555555", lw=0.8)

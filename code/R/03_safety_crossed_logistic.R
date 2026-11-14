@@ -1,15 +1,9 @@
-# ===========================================================================
-# 03 — Safety: crossed mixed-effects logistic (glmer) with item + rater random
-# intercepts, vs the population-averaged binomial GEE (geeglm, exchangeable,
-# clustered by item). Outcome = no-risk (1) vs risk (0). ChatICU reference.
-# ===========================================================================
 source("R/00_common.R")
 suppressWarnings(suppressMessages(library(geepack)))
 d <- load_long()
 OUT <- "results_R"
-s <- domain_df(d, "Safety", ordered = FALSE)   # y = 0/1 (1 = no identifiable risk)
+s <- domain_df(d, "Safety", ordered = FALSE)
 
-# ---- crossed mixed-effects logistic ----
 glfit <- glmer(y ~ model + (1 | item) + (1 | rater), data = s, family = binomial,
                control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5)))
 gco <- summary(glfit)$coefficients
@@ -22,7 +16,6 @@ glmm_tab <- data.frame(
   p = signif(gco[b, "Pr(>|z|)"], 3),
   estimator = "glmer crossed (item+rater)")
 
-# ---- population-averaged GEE (clustered by item) ----
 s2 <- s[order(s$item), ]
 gee <- geeglm(y ~ model, id = item, data = s2, family = binomial, corstr = "exchangeable")
 ge <- summary(gee)$coefficients

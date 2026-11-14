@@ -1,7 +1,6 @@
 suppressPackageStartupMessages({library(brms); library(rstan); library(dplyr)})
 rstan_options(boost_lib = system.file("include", package="BH"), eigen_lib = system.file("include", package="RcppEigen"), auto_write = TRUE)
 options(mc.cores = 4)
-# Run from the repository root: Rscript code/R/run_bayes.R  (slow: 7 brms models, 4 chains each)
 d1 <- read.csv("data/expert_ratings_long.csv", stringsAsFactors = FALSE)
 names(d1)[names(d1) == "system"] <- "model"; names(d1)[names(d1) == "rater"] <- "expert"
 d1$model <- factor(d1$model, levels = c("ChatICU", "ChatGPT", "OpenEvidence"))

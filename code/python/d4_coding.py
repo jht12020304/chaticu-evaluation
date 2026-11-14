@@ -1,8 +1,7 @@
-# D4 blinded LLM coding pipeline (spec §3.1–3.6). Expects D3 (DataFrame) and blinded (DataFrame) in namespace.
 import json, time, re
 import pandas as pd
 
-TEMPERATURE = None  # `temperature` is deprecated/rejected (400) for this model; server default used
+TEMPERATURE = None
 MAX_TOKENS = 7000
 MODEL = host.reasoning_model()
 CONC = 6

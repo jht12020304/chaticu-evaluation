@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Inter-rater reliability (Supplementary Figure S6): two-way random-effects, absolute-agreement, average-measures
 ICC(2,k) with 95% CI (pingouin) and Gwet's AC1 (Safety) / quadratic-weighted AC2 (ordinal domains) with a
 subject-level bootstrap 95% CI. Subjects = 204 responses (question x system), raters = 8.

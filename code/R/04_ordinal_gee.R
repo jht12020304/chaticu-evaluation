@@ -1,9 +1,3 @@
-# ===========================================================================
-# 04 — Robustness: ordinal GEE (multgee::ordLORgee), cumulative logit, independence
-# working correlation, clustered by question; sandwich standard errors. One model
-# per Likert domain. ChatICU reference. Reported in Supplementary Figure S2.
-# Run from the code/ directory after make_input.R: Rscript R/04_ordinal_gee.R
-# ===========================================================================
 source("R/00_common.R")
 suppressWarnings(suppressMessages(library(multgee)))
 d <- load_long()
@@ -17,8 +11,6 @@ for (dom in LIKERT_DOMAINS) {
   fit <- ordLORgee(y ~ model, data = s, id = qid_int, link = "logit", LORstr = "independence")
   co <- summary(fit)$coefficients
   b <- grep("^model", rownames(co))
-  # ordLORgee models logit P(Y <= j) = beta_j + x'beta, so a positive beta shifts mass to LOWER
-  # categories; the cumulative OR of a HIGHER rating vs ChatICU is exp(-beta).
   est <- co[b, "Estimate"]; se <- co[b, "san.se"]
   rows[[dom]] <- data.frame(domain = dom, contrast = sub("^model", "", rownames(co)[b]),
                             beta = round(est, 5), se = round(se, 5), p = signif(co[b, "Pr(>|san.z|)"], 3),

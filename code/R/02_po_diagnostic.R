@@ -1,9 +1,3 @@
-# ===========================================================================
-# 02 — Proportional-odds (PO) diagnostic + partial-PO fallback
-# Fixed-effects cumulative-link model per domain (clm); nominal_test = LR test
-# of the PO assumption per term. Where PO is violated for 'model', refit with
-# nominal effects (partial-PO) and report. Also reports a threshold-wise check.
-# ===========================================================================
 source("R/00_common.R")
 d <- load_long()
 OUT <- "results_R"
@@ -16,7 +10,6 @@ for (dom in LIKERT_DOMAINS) {
   p_model <- if (!is.null(nt) && "model" %in% rownames(nt)) nt["model", "Pr(>Chi)"] else NA
   violated <- !is.na(p_model) && p_model < 0.05
 
-  # partial-PO refit if violated
   ppo_note <- "PO holds (model term)"
   if (violated) {
     ppo <- tryCatch(clm(y ~ 1, nominal = ~ model, data = s, link = "logit"),

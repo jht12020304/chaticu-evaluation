@@ -4,7 +4,7 @@ apply_figure_style(sizes=(8, 7, 6))
 COL = {"ChatICU": "#374E55", "ChatGPT": "#DF8F44", "OpenEvidence": "#00A1D5"}
 SYS = ["ChatICU", "ChatGPT", "OpenEvidence"]
 DOMS = ["Accuracy", "Relevance", "Clarity", "Trust", "Comparison", "Confidence"]
-LIKERT = ["#d9d9d9", "#bdbdbd", "#969696", "#636363", "#252525"]  # 1..5 single-hue ordinal ramp
+LIKERT = ["#d9d9d9", "#bdbdbd", "#969696", "#636363", "#252525"]
 
 def save(fig, name):
     fig.savefig(f"figs/{name}.png", dpi=300, bbox_inches="tight")
@@ -16,7 +16,6 @@ def bbox_check(fig):
     n = sum(1 for i, (a, ba) in enumerate(texts) for b, bb in texts[i+1:] if ba.overlaps(bb))
     return n
 
-# ---------------- Figure 2: 100% stacked Likert bars ----------------
 dist = pd.read_csv("data/fig2_score_distribution.csv")
 fig, axes = plt.subplots(2, 3, figsize=(7.2, 3.6), sharex=True)
 for ax, dm in zip(axes.flat, DOMS):
@@ -43,7 +42,6 @@ fig.text(0.99, 0.985, "n = 544 ratings per bar (68 questions × 8 raters)", ha="
 fig.tight_layout(rect=(0, 0.02, 1, 0.97))
 save(fig, "Fig2_score_distribution"); print("Fig2 overlaps:", bbox_check(fig)); plt.close(fig)
 
-# ---------------- Figure 3: CLMM forest ----------------
 cl = pd.read_csv("data/clmm_results.csv"); sf = pd.read_csv("data/safety_glmm_results.csv")
 rows = []
 for dm in DOMS + ["Safety"]:
@@ -83,7 +81,6 @@ set_frame(ax, "open")
 fig.tight_layout()
 save(fig, "Fig3_clmm_forest"); print("Fig3 overlaps:", bbox_check(fig)); plt.close(fig)
 
-# ---------------- Figure 4: citation vs accuracy vs safety ----------------
 f4 = pd.read_csv("data/fig4_stats.csv", index_col=0).loc[SYS]
 fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.7))
 x = np.arange(3); ax = axes[0]

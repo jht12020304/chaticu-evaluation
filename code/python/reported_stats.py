@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Recomputes, from the released data, the descriptive and exploratory statistics reported in the manuscript:
 Table S1 (means with multiway cluster bootstrap 95% CIs), the composite score and domain correlations (Figure S1),
 Friedman / Holm-adjusted Wilcoxon tests, Safety proportions with Wilson CIs and citation counts (Figure 4),
@@ -41,7 +40,6 @@ def qboot_ci(groups, stat, seed=SEED):
     boots = np.array([stat([groups[i] for i in rng.integers(0, n, n)]) for _ in range(B)])
     return np.percentile(boots, [2.5, 97.5])
 
-# ---------------- Table S1: domain means with multiway cluster bootstrap CIs ----------------
 arch_s1 = pd.read_csv("results/TableS1_domain_means_CI.csv").set_index("Domain")
 rows, acc = [], {}
 for dom in QUAL + ["Confidence"]:
@@ -54,7 +52,6 @@ for dom in QUAL + ["Confidence"]:
     rows.append(r)
 pd.DataFrame(rows).to_csv(f"{OUT}/TableS1_domain_means_CI.csv", index=False)
 
-# ---------------- Composite score and domain correlations (Figure S1) ----------------
 wide = d[d.domain.isin(QUAL)].pivot_table(index=["question_id", "system", "rater"], columns="domain", values="score")[QUAL]
 comp = wide.mean(axis=1).rename("composite").reset_index()
 comp_rows = []
@@ -66,7 +63,6 @@ chk("composite ChatICU (manuscript 4.273 [4.026, 4.507])", f"{comp_rows[0]['mean
 corr = wide.corr().round(3); corr.to_csv(f"{OUT}/figS1B_corr.csv")
 chk("r(Accuracy, Trust) (manuscript 0.86)", f"{corr.loc['Accuracy', 'Trust']:.2f}", "0.86")
 
-# ---------------- Friedman and Holm-adjusted Wilcoxon tests (question-level means) ----------------
 arch_fw = pd.read_csv("results/friedman_wilcoxon.csv").set_index("domain")
 fw = []
 pairs = [("ChatICU", "ChatGPT"), ("ChatICU", "OpenEvidence"), ("ChatGPT", "OpenEvidence")]
@@ -83,7 +79,6 @@ for dom in QUAL + ["Confidence"]:
     chk(f"Holm Wilcoxon {dom} ChatGPT vs OpenEvidence", f"{holm[2]:.3g}", f"{arch_fw.loc[dom, 'wilcoxon_holm_ChatGPT_vs_OpenEvidence']:.3g}")
 pd.DataFrame(fw).to_csv(f"{OUT}/friedman_wilcoxon.csv", index=False)
 
-# ---------------- Figure 4: citation counts, Accuracy means, Safety proportions with Wilson CIs ----------------
 arch_f4 = pd.read_csv("results/fig4_stats.csv").set_index("model")
 f4 = []
 for s in SYS:
@@ -97,13 +92,12 @@ for s in SYS:
         chk(f"fig4 {s} {k}", f"{f4[-1][k]:.4f}", f"{arch_f4.loc[s, k]:.4f}")
 pd.DataFrame(f4).to_csv(f"{OUT}/fig4_stats.csv", index=False)
 
-# ---------------- LLM-based evaluation: Table S3, dose classification, flagged burden (Figures S3-S5) ----------------
 arch_d4 = json.load(open("results/D4_summary_stats.json"))["per_system"]
 wcc = a.core_correctness.map({"fully_correct": 1.0, "partially_correct": 0.5, "incorrect": 0.0})
 per_system, adequate = {}, {}
 for s in SYS:
     aa = a[a.system == s].copy(); mm = m[m.system == s]; st = mm[mm.mention_type == "stated"]
-    fid_groups = [[v] for v in aa.semantic_fidelity.values]              # one answer per question
+    fid_groups = [[v] for v in aa.semantic_fidelity.values]
     fid_ci = qboot_ci(fid_groups, lambda g: np.mean([x[0] for x in g]))
     cls = st["class"].value_counts().to_dict()
     TP = cls.get("correct", 0); FP = len(st) - TP; FN = int((mm.mention_type == "omitted").sum())
@@ -145,7 +139,6 @@ for s in SYS:
     chk(f"S4 {s} weighted burden / affected answers", f"{ps['flagged_weighted_burden']} / {ps['flagged_affected_answers']}", f"{ar['nm_weighted_burden']} / {ar['nm_affected_answers']}")
     chk(f"S3 {s} length mean (SD)", f"{ps['char_length_mean']:.0f} ({ps['char_length_sd']:.0f})", f"{ar['char_length_mean_D2']:.0f} ({ar['char_length_sd_D2']:.0f})")
 
-# ---------------- Exploratory convergence and threshold analysis (Figure S7, Results text) ----------------
 arch_s5 = json.load(open("results/S5_exploratory_validation.json"))
 acc_q = d[d.domain == "Accuracy"].groupby(["question_id", "system"]).score.mean().rename("acc_mean").reset_index()
 v = a.merge(acc_q, on=["question_id", "system"]); v["wcc"] = wcc[v.index] if len(v) == len(a) else v.core_correctness.map({"fully_correct": 1.0, "partially_correct": 0.5, "incorrect": 0.0})
@@ -178,7 +171,6 @@ chk("S5 logit OR per 100 chars (p)", f"{s5['logit_hallucination_on_char_length']
 json.dump({"seed": SEED, "bootstrap_replicates": B, "per_system": per_system, "domain_adequate_proportions": adequate, "exploratory_validation": s5},
           open(f"{OUT}/llm_evaluation_stats.json", "w"), ensure_ascii=False, indent=1)
 
-# ---------------- check table ----------------
 print(f"{'check':60s} {'computed':34s} archived"); print("-" * 120)
 for label, c, ar in checks: print(f"{label:60s} {str(c):34s} {ar}{'' if str(c) == str(ar) else '   *'}")
 print(f"\nwrote {OUT}/ (Table S1, figS1A/B, friedman_wilcoxon, fig4_stats, llm_evaluation_stats.json); * = differs from archived value")

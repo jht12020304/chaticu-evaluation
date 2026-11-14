@@ -73,9 +73,9 @@ Code: [MIT License](LICENSE). Data (`data/`, `results/`): [Creative Commons Attr
 
 ## Citation
 
-Yu, C.-Y., Hsu, C.-W., Yeh, C.-C., Day, C.-H. A., Ding, C.-H., Lin, Y.-T., Chen, Y.-T., & Lin, C.-P. (2026). *ChatICU evaluation: data and analysis code* (v1.0.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.24214952
+Yu, C.-Y., Hsu, C.-W., Yeh, C.-C., Day, C.-H. A., Ding, C.-H., Lin, Y.-T., Chen, Y.-T., & Lin, C.-P. (2026). *ChatICU evaluation: data and analysis code* [Software]. Zenodo. https://doi.org/10.5281/zenodo.24214951
 
-The version-specific DOI above identifies the archived v1.0.0 release. The [all-versions DOI](https://doi.org/10.5281/zenodo.24214951) resolves to the latest archived version.
+The [all-versions DOI](https://doi.org/10.5281/zenodo.24214951) resolves to the latest archived version. For reproducibility, cite the version-specific DOI displayed on the Zenodo record for the release used in your analysis.
 
 ## Contact
 

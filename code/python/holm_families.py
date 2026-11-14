@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Holm adjustment of the crossed-CLMM contrasts as reported in the manuscript:
 the 10 clinical-quality contrasts (5 domains x 2 comparators) form one family and
 the 2 Confidence contrasts a separate family. Input: code/results_R/table2_crossed_clmm.csv
