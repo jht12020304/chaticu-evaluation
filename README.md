@@ -1,5 +1,7 @@
 # ChatICU evaluation: data and analysis code
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Data and code accompanying the manuscript *Evaluating Clinical Reliability Beyond Citations: A Source-Blinded Expert Comparison of Generative AI Systems for ICU Pharmacotherapy* (submitted to npj Digital Medicine, 2026).
 
 Three generative AI systems (ChatICU, ChatGPT and OpenEvidence) answered 68 ICU pharmacotherapy questions (204 responses). Eight interprofessional experts rated every source-blinded response on five clinical quality domains, rater confidence and a binary safety judgement (11,424 ratings). A blinded LLM-based evaluation was performed as an exploratory secondary analysis.
@@ -62,10 +64,11 @@ R outputs are written to `code/results_R/`, Python outputs to `code/results_py/`
 - All six ordinal domains are reported with the random-slope model (`spec = slope` in `results/clmm_results.csv`, `random_slope = TRUE` in `results/table2_crossed_clmm.csv`), as in the manuscript. With R 4.5.2 and `ordinal` 2025.12.29 the scripts reproduce every odds ratio and 95% CI to the precision reported in the manuscript; p-values and CI bounds may differ in the third significant digit between runs (for example 0.613 versus 0.614) because the released file uses recoded rater labels (a different factor order) and the optimiser stops within tolerance.
 - `04_ordinal_gee.R`, `reported_stats.py` and `irr_icc_gwet.py` reproduce every archived point estimate exactly (GEE coefficients and standard errors, Friedman statistics, Wilson CIs, ICC, Gwet's AC, all Table S3 values, flagged burden, correlations and the threshold analysis). Bootstrap CIs (Table S1, composite score, semantic fidelity, F1, Gwet's AC) are seeded but not bit-identical to the archived values because the resampling implementation differs; they agree to within about 0.02.
 - `d4_coding.py` and `d4_tfidf.py` require the question, reference-standard and response texts, which are not released; they are provided to document the prompts, coding logic and similarity computation. `make_main_figs.py` and `make_supp_figs.py` document the plotting code and read intermediate tables produced by the pipeline; they are not runnable from this repository as-is.
+- `d4_coding.py` additionally expects the original hosted execution environment (`host.reasoning_model()` and `host.llm()`) and preloaded `D3` and blinded-response tables. It is an archived pipeline fragment, not a standalone API client.
 
 ## Licence
 
-Code: MIT License (`LICENSE`). Data (`data/`, `results/`): Creative Commons Attribution 4.0 International (CC BY 4.0).
+Code: [MIT License](LICENSE). Data (`data/`, `results/`): [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
 
 ## Contact
 

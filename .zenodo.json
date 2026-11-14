@@ -1,0 +1,32 @@
+{
+  "title": "ChatICU evaluation: data and analysis code",
+  "description": "Data and analysis code accompanying Evaluating Clinical Reliability Beyond Citations: A Source-Blinded Expert Comparison of Generative AI Systems for ICU Pharmacotherapy. Includes de-identified expert ratings (11,424 rows), archived blinded LLM evaluation outputs, R and Python analysis scripts, coding protocols, and model results. Code is licensed under MIT; data/ and results/ are licensed under CC BY 4.0. Evaluation questions, reference answers, system response texts, and the ChatICU application and knowledge base are not included. The LLM coding and original plotting scripts require unreleased inputs; see README.md for reproduction limits.",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "mit",
+  "creators": [
+    {"name": "Yu, Chih-Yao"},
+    {"name": "Hsu, Chun-Wei"},
+    {"name": "Yeh, Chi-Chan"},
+    {"name": "Day, Chieh-Hsin Annabelle"},
+    {"name": "Ding, Chao-Hsin"},
+    {"name": "Lin, Yi-Ting"},
+    {"name": "Chen, Yung-Tai"},
+    {"name": "Lin, Ching-Po"}
+  ],
+  "keywords": [
+    "large language models",
+    "retrieval-augmented generation",
+    "critical care",
+    "pharmacotherapy",
+    "medication safety",
+    "clinical evaluation"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/jht12020304/chaticu-evaluation",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ]
+}
